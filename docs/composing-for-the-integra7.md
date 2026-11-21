@@ -61,8 +61,31 @@ plan each session around short things they can listen to and answer.
 | Rhythm guitar | StandardJazz `sn-a-preset-0099` | Four to the bar, three-note voicings, very quiet (level about 60). **heard** |
 | Muted trumpet | MutedTrumpet `sn-a-preset-0221` | Sparse answering fills, far back in the room. **heard** |
 | Brushes | Jazz Brushes `sn-d-preset-0009` | Key map below. **heard** |
-| Sticks | Jazz Kit `sn-d-preset-0007` | GM-style notes 36 kick, 38 snare, 44 pedal hi-hat, 51 ride, 49 crash worked. **heard** |
+| Sticks | Jazz Kit `sn-d-preset-0007` | GM-style notes 36 kick, 38 snare, 44 pedal hi-hat, 51 ride, 49 crash worked. For medium swing with surround off (level 114): kick about 90 on one and three and 62 on two and four, "magic"; a feathered kick at 26-40 went unheard. **heard** |
 | Tenor sax | T Sax 1 Soft `sn-a-preset-0236`; ExSN2 Tenor Sax 2 `exsn2-0004` | The hardest to make convincing; see below. |
+
+**Vibraphone at faster tempos** (`examples/compose_half_past_blue.py`, 138 bpm,
+Vibes Soft `sn-a-preset-0169`):
+
+- Mallet rolls written as repeated strokes, about 11 a second (5 per beat at
+  138 bpm), pedal down, first stroke accented and the rest 16 lower and
+  swelling, spaced evenly in real time (undo the player's swing with
+  `unswung`): "perfect". **heard**
+- The ballad recipe (every note ringing 2 beats, pedal held until the next
+  chord) made the notes of an eighth-note line clash, "like harmonics are
+  clashing because of the long sustain". **heard**
+- The fix: pedal up except under rolls and the last chord, each note ringing
+  1.5 beats (1 below C4) and stopped when a note a step away or the same note
+  is struck. "Clashing is basically gone ... sounds really good". **heard**
+- With vibes 94, bass 108, piano 86 (comping velocities near 58) and drums 92,
+  the listener heard only bass and vibes and barely noticed the piano. **heard**
+
+- A piano that sounded "slightly dischordant" under the vibes was the notes,
+  not the tone: voicings holding a note a semitone or minor ninth from the
+  melody (D under Eb on C minor, F under F# on Ab7), the lead dropping into the
+  piano's octave, and vibes notes ringing into the next chord. Removing those
+  notes, moving the piano above the low phrase and damping the vibes when a
+  chord a semitone away lands: "a lot cleaner". **heard**
 
 Struck and plucked instruments are the most convincing. A solo saxophone is the
 least: the listener called the tones "very close but not authentic" until the
@@ -94,6 +117,23 @@ CC65 portamento/glissando, CC80 staccato, CC81 fall, CC82 subtone.
   leave room to breathe between phrases, shape each phrase with a CC1 arc,
   vibrato late and only on long notes, subtone on quiet phrases.
 - Result with style `breathy_ballad_tenor`: "really close". **heard**
+- **Register and plain playing beat the expression layer** (T Sax 1 Soft, four
+  solo takes of one phrase, 104 bpm). The listener said the sax in a full tune
+  "still just sounds bad" although the same tone played from a keyboard around
+  middle C sounds "really good". Of: (1) `breathy_ballad_tenor` at D4-D5,
+  (2) plain notes at D4-D5, each attacked with a gap (length x 0.85), velocity
+  about 100, no controllers, (3) `warm_jazz_tenor` with every note tongued,
+  (4) the same as 2 an octave lower (D3-D4): take 4 "sounded literally a
+  million times better". So keep a tenor between about D3 and D4, and try
+  plain, firmly struck, separately attacked notes before the expression block.
+  Not yet separated: whether the expression layer is fine in the low register.
+  **heard**
+- That recipe applied to the tenor in a full tune (`examples/velvet-hour.json`:
+  lines dropped an octave to Bb2-D4, no `expression` block, length x 0.85,
+  velocity 78-110, part still mono/legato): "that's it, it sounds literally a
+  million times better". The same change to the tenor lead of the 76 bpm
+  ballad (`compose_last_set.py`, big surround room left on): "so much
+  better". **heard**
 - Not yet judged by ear: `examples/sax-articulation-test.json`, and how the
   Fall (CC81) and SubTone (CC82) switches really behave. Ask the listener to
   run it before leaning on falls.
@@ -106,6 +146,12 @@ CC65 portamento/glissando, CC80 staccato, CC81 fall, CC82 subtone.
   listener preferred it. While it is on, the unit bypasses the Studio Set
   reverb and chorus, so "reverb on one instrument" means that part's
   `ambience_send`. **heard**
+- **But it can bury the rhythm section.** In the 138 bpm vibes quartet
+  (`examples/half-past-blue.json`) with the big-hall settings below, the
+  listener could not hear the piano or drums even after raising their levels;
+  with `surround.switch=off` (plain reverb `hall2`, vibes `reverb_send` 127,
+  the others 10-25) "I can hear everything clearly", "sounds a lot better". The big room was approved
+  on a 76 bpm ballad; for a faster, busier tune start with surround off. **heard**
 - **Go big.** A small room with moderate sends sounded dry, "like my head is in
   the band". What sounded "amazing": **heard**
 
@@ -137,7 +183,25 @@ CC65 portamento/glissando, CC80 staccato, CC81 fall, CC82 subtone.
   ii-V turnarounds, a plagal minor (iv-minor-6) before the last chord; bass in
   two; piano left-hand shell on the change with the right hand answering a beat
   later.
-- Balance (part level): lead 108-112, bass 104-110, drums 88-100, piano 84-92,
+- Three-note answering phrases in the lead's one-and-a-half-beat gaps did not
+  work, on the comping piano's right hand ("we're interrupting the piano vibe")
+  or on a jazz guitar ("too short to be meaningful ... interrupts the vibe
+  continuity"); they were removed. An answer needs real room, as the muted
+  trumpet has in the ballad. **heard**
+- A break filled with snare only (three triplets, then a six-stroke ruff
+  growing into the last chord, kick underneath): "great", once brought down
+  from velocities 66-118 (see `compose_half_past_blue.py`). **heard**
+- A six-piece at 104 bpm with surround off (`examples/velvet-hour.json`,
+  from `compose_velvet_hour.py`): muted trumpet as a lead (`warm_jazz_tenor`,
+  intensity 0.8, no subtone/scoops/falls) trading whole two-bar phrases with
+  T Sax 1 Soft, then the two in sixths; upright piano taking the bridge with
+  no pedal; trumpet 106, sax 100, piano 98, bass 102, guitar 66, brushes 108.
+  First listen, as a whole: "Wow that was really good". No detail judged
+  yet. **heard**
+- Balance with Motional Surround off, medium swing quartet
+  (`examples/half-past-blue.json`): vibes 94, piano 102 (comping velocity about
+  70), bass 102, drums 114. "Basically perfect". **heard**
+- Balance with the big surround room, ballad (part level): lead 108-112, bass 104-110, drums 88-100, piano 84-92,
   rhythm guitar about 60, background horn about 62.
 - There is no tempo map: slow into an ending by stretching the beat positions
   of the last bar in the generator (`slow_down` in `compose_last_set.py`).

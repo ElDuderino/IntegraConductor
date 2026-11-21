@@ -111,8 +111,9 @@ MELODY_A2 = [
 
 
 def sax_note(beat: float, pitch: str, length: float, vel: int, marks: str = "") -> None:
-    # Phrasing (slurs, breath, dynamics, vibrato, subtone) is added at play time by the
-    # expression layer; here we only write the tune and mark where breaths fall.
+    # Here we only write the tune and mark where breaths fall. The clarinet variant has
+    # its phrasing (slurs, breath, dynamics, vibrato) added at play time by the expression
+    # layer; the tenor is played plain, an octave down (see the lead options below).
     sax.append([round(beat, 3), pitch, length, vel, marks])
 
 
@@ -227,7 +228,15 @@ lead = {"part": 1, "patch_id": "sn-a-preset-0236", "level": 112, "pan": 66,
 # A wind player sounds one note at a time: mono + legato lets overlapping notes slur.
 # A numeric bend range makes pitch bend an ordinary bend, used for the scoops.
 lead_fx = {"mono_poly": "mono", "legato": "on", "bend_range": "2"}
-if LEAD == "clarinet":
+if LEAD == "sax":
+    # Played the way the listener's keyboard plays this tone, which they found far
+    # better than the shaped, slurred version: an octave below the written tune (down
+    # in the tenor's low register), every note attacked on its own with a small gap,
+    # struck firmly, and with no controller messages at all.
+    sax = [[beat, NAMES[n(pitch) % 12] + str(n(pitch) // 12 - 2), round(length * 0.85, 3),
+            min(vel + 24, 110)] for beat, pitch, length, vel, _marks in sax]
+    del lead["expression"]
+elif LEAD == "clarinet":
     lead.update(patch_id="sn-a-preset-0243", level=104)
     lead["expression"] = {"style": "warm_jazz_tenor", "seed": 1947, "subtone": 0, "falls": 0}
 elif LEAD in ("vibes", "piano"):
