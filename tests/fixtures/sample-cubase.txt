@@ -1,0 +1,54 @@
+[cubase parse file]
+[parser version 0001]
+[creators first name] Test
+[device manufacturer] Roland
+[device name] Fixture
+[script version] version 9.99
+
+[define patchnames]
+[mode] Tones
+
+[g1] Acoustic Piano
+[g2] Supernatural Acoustic
+[p3,   0,  89,  64] Full Grand 1
+[p3,1,89,64] Full Grand 1
+  [p3 ,  2 , 89 , 64 ]   Full Grand 3  
+[p3,   2,  89,  64] Concert Grand
+[p3,   3,  89,  64] Comp' "Steel"
+
+[g1] Pulsating
+[g2] Supernatural Synth
+[p3, 111,  95,  65] Sawﬂutter
+
+[g1] Acoustic Piano
+[g2] GM2
+[p3,   0, 121,   0] Piano 1
+[p3,   0, 121,   1] Piano 1w
+
+[g1] SRX-06 - Complete Orchestra
+[g2] Strings
+[p3,   0,  93,   7] Full Strings
+
+[g1] Mystery
+[p3,   5,  10,  20] Unknown Bank Tone
+[p3, 200,  89,  64] Program Too High
+[p3, 127,  89,  65] Last SN-A
+[p3,  60,  93,   0] Past SRX01 End
+[p3, oops] Broken
+this line is noise
+
+[mode] Drums
+[g1] Supernatural Drum Kits
+[p2,   0,  88,  64] Session Kit
+[g1] EX PCM Drum Kits
+[g2] PCM Drum Kit
+[p3,   4,  96,   0] Jazz Kit
+[g1] Supernatural Drum Kits
+[p2,   6,  88,  64] Jazz Kit
+
+[mode] Studio Sets
+[g1] Studio Set Factory 1-16
+[p2,   0,  85,   0] Integra Preview
+
+[end]
+[p3,   9,  89,  64] After End Ignored

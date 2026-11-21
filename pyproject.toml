@@ -1,0 +1,64 @@
+[build-system]
+requires = ["hatchling>=1.21"]
+build-backend = "hatchling.build"
+
+[project]
+name = "integra7-conductor"
+version = "0.1.0"
+description = "Agent-friendly CLI and MCP server for deterministic MIDI control of the Roland INTEGRA-7 from WSL via a Windows MIDI adapter."
+readme = "README.md"
+requires-python = ">=3.11"
+keywords = ["roland", "integra-7", "midi", "sysex", "mcp", "wsl"]
+# The WSL-side CLI, catalog and tests need only the standard library.
+dependencies = []
+
+[project.optional-dependencies]
+# stdio MCP server (WSL side)
+mcp = ["mcp>=1.2"]
+# Direct MIDI access. Install this in the *Windows* Python environment
+# (scripts/setup-windows.ps1 does so), or on Linux/macOS for the optional
+# native backend.
+midi = ["mido>=1.3", "python-rtmidi>=1.5"]
+dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.10"]
+
+[project.scripts]
+integra7 = "integra7_conductor.cli:main"
+integra7-mcp = "integra7_conductor.mcp_server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/integra7_conductor"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"data/sources" = "integra7_conductor/_bundled_sources"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+# Note tables read best one bar per line.
+"examples/*.py" = ["E501"]
+# The adapter must stay runnable as a standalone script on older Windows Pythons.
+# (B904: adapter errors are serialized to JSON, so exception chaining adds nothing.)
+"src/integra7_conductor/midi/windows_adapter.py" = ["UP", "B904"]
+
+[tool.mypy]
+python_version = "3.11"
+files = ["src"]
+warn_unused_ignores = true
+check_untyped_defs = true
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+# Standalone script for Windows Python: Windows-only ctypes (winmm) code that
+# mypy cannot resolve on Linux. Its logic is covered by tests through the mock.
+module = "integra7_conductor.midi.windows_adapter"
+ignore_errors = true

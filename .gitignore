@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+wheels/
+
+# Virtual environments (Linux/WSL and Windows-native)
+.venv/
+.venv-*/
+venv/
+env/
+
+# Test, lint and type-check caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+
+# Generated catalog artifacts (rebuild with `integra7 patches import`).
+# The catalog normally lives in ~/.local/share/integra7-conductor/, not the repo.
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+patches.json
+
+# Local configuration, secrets and machine-specific state
+.env
+.env.*
+!.env.example
+config.local.toml
+*.lock.pid
+.claude/settings.local.json
+
+# Downloaded reference documents (Roland PDFs are copyrighted; do not commit)
+*.pdf
+
+# Editors / OS
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+*:Zone.Identifier
+
+# Logs and scratch
+*.log
+tmp/
+scratch/

@@ -1,0 +1,16 @@
+# The checkout is shared between Windows tools and WSL. Keep LF everywhere so
+# shell scripts and Python entry points work from WSL regardless of the
+# Windows-side core.autocrlf setting.
+* text=auto eol=lf
+
+# PowerShell tolerates LF, but Windows editors expect CRLF.
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Third-party source data is stored byte-for-byte (upstream uses CRLF and
+# non-ASCII characters); its SHA-256 is recorded for provenance.
+data/sources/*.txt -text
+
+*.db binary
+*.pdf binary

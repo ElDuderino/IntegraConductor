@@ -1,0 +1,8 @@
+[define patchnames]
+[mode] Tones
+[g1] SuperNATURAL Acoustic Tone
+[g2] Ac.Piano
+[p3,   0,  89,  64] Full Grand 1
+[p3,   3,  89,  64] Comp Steel Alt
+[p3,   7,  89,  64] Only In Compare
+[end]
