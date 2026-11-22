@@ -140,6 +140,76 @@ CC65 portamento/glissando, CC80 staccato, CC81 fall, CC82 subtone.
 - If a sax still will not do, offer a lead the unit does better in the same
   style: vibes, piano trio, clarinet (the `compose_last_set.py` variants).
 
+## Acid house and techno (`examples/compose_prism_acid.py`, 2026-11-21)
+
+The Prism promo soundtrack (128 bpm, A minor) moved from firmware emulations to
+the unit. The generator reads its notes from `prism_score.py` in the
+Aretas3DAssets repository.
+
+- **TR drums without SRX-08 or ExPCM:** SRX-05 "All TR Menu" `srx05-drum-0034`
+  holds three machines in one kit (key names read from the unit): 36-50 TR-707,
+  51-78 TR-808, 79-103 TR-909. Putting the same kit on three parts (kick, hats,
+  clap/snare/crash) gives each its own level and reverb send.
+- **Pick kicks by length, not by name.** 808 kick 1 (key 51) sounded "poppy",
+  wanting "more sustain and low end oomph". **heard** Measured from a recording
+  (time to fall 20 dB; share of energy at 30-80 Hz): 707 kicks 36/37 48 ms, 63%;
+  808 kicks 51-53 about 40 ms; 808 kick 54 437 ms, 93%; 808 kick 55 over 1 s,
+  98%; 909 kicks 79/80/81 36/157/203 ms. Key 54 with key 51 layered at 0.55 of
+  its velocity, part level 106: accepted ("everything else is great now").
+  **heard**
+- **303 line:** SuperNATURAL synth TB Bass 2 `sn-s-preset-0687` (one saw,
+  resonant low-pass, mono, legato), part `mono_poly=mono legato=on`. A slide is
+  an overlapping note (1.3 sixteenths long) with CC65 at 127 just before the
+  note slid into and 0 before any other. The tone ignores velocity, so an
+  accent is CC11 (unaccented steps at 0.78) plus 12 more on CC74. Cutoff and
+  resonance sweeps are CC74 and CC71. "Pretty good". **heard**
+- CC74, CC71 and CC65 change the Studio Set Part's cutoff offset, resonance
+  offset and portamento switch (64 = the tone's own value): sent at level 0 and
+  read back from the part block (offsets `13`, `14`, `10`). Reset them at the
+  end of a score or the part stays filtered.
+- **Preset leads carry their own delay,** which does not follow the tempo.
+  Stn MG Lead `sn-s-preset-0879` on E5-A5 sounded "like a squeaky horn"; Reso
+  Juno `sn-s-preset-0926` on the lead and on two echo parts: "the reverb is way
+  off beat and throws me off". **heard** Read the tone's MFX type before using
+  it (SuperNATURAL Synth Tone offset `00 02 00`, first byte): the leads and
+  most SEQ tones read 34-36, basses 31-32, SEQ 10 `sn-s-preset-0556` and
+  Trance Key 1 read 1. That 34-36 are delays is from memory of Roland's effect
+  list, not checked against the Parameter Guide.
+- Of the three machines, played one after another, the 707 version was
+  preferred: 707 kick (key 36) with the long 808 kick (key 54) under it at 0.9
+  of its velocity, 707 snare, clap, hats, crash and ride. "The un tss un tss in
+  that 707 is pretty sick". It is the generator's default. **heard**
+- **Check what the listener misses against the source, per beat.** They missed
+  "a crash cymbal or something on every kick" from the original. It was the
+  ride on every beat after the drop: in the original the highs (5-14 kHz) on
+  the beat rise 8.5 dB at the drop; ours rose 2.5 dB with the 707 ride (key 50)
+  at velocity 60. At velocity 122 they rise 17 dB and match the open hats.
+  Measured, not yet heard.
+- The original is far wetter than the first translation, as the listener
+  suspected ("super heavy delay / hall"): about a 6 s hall with sends of 0.3
+  to 0.85 and a dotted-eighth ping-pong delay on acid, lead and clap. Ours now
+  repeats the acid line a dotted eighth and a quarter-and-a-half later on two
+  quiet parts (levels 46 and 34, panned left and right) and uses reverb sends
+  acid 60, clap 95, pad 100, lead 120, hats 28. Not yet heard.
+- **Layered kicks can cancel; measure the layer, do not blame the reverb.** The
+  wetter version with the loud ride was "sounding good", but "the kick low end
+  is scooped out by that reverb ... the deep thump is basically gone". Moving
+  the acid echoes up an octave, ducking them on the kick and cutting the acid
+  reverb send did not help. A recording showed 4.5 dB less at 30-70 Hz than the
+  approved 808 take, from bar 1 on, so it was the kick itself: the 707 kick
+  (66 Hz) partly cancels the long 808 kick (50 Hz). At 30-70 Hz: 808 kick 54
+  alone at velocity 127, 14.2 dB; with the 707 kick at 127, 12.4; with the 707
+  at 90, 13.0; at velocity 114 under the 707 at 127, 10.5. With key 54 at 127,
+  the 707 kick at 0.7 of it and the kick part at level 127: "yeah that's really
+  good now". **heard**
+- That approved version (`examples/prism-acid.json`): 707 kit, ride at velocity
+  122, acid echoes a dotted eighth and two dotted eighths late, an octave up,
+  levels 46 and 34, ducked 0.85 on each kick; reverb `hall2` with sends acid 42,
+  clap 95, pad 100, lead 120, hats 28; SEQ 10 lead with eighth-note echoes;
+  levels kick 127, hats 122, clap 112, acid 90, pad 80, lead 76. **heard**
+- The 707 hats ignore CC74 (the 808 hats follow it), so the "door" also scales
+  hat velocities down to 0.2 in bar 1. Not judged on its own.
+
 ## Room and effects
 
 - **Motional Surround beats the plain reverb** for a live-room feel; the
